@@ -1,0 +1,7 @@
+jupyterlab
+catppuccin-jupyterlab
+jupyterlab-lsp
+pylops
+numpy
+scipy
+matplotlib
