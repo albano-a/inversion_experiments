@@ -5,3 +5,7 @@ pylops
 numpy
 scipy
 matplotlib
+segyio
+ipympl
+ipywidgets
+cigvis
