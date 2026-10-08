@@ -83,15 +83,11 @@ def read_horizon(path=None):
             text = f.read()
     else:
         text = SAMPLE
-    # aceita tambem "ILINE : 970 XLINE : 1650 0.0 0.0 Z extra" (Z = ultima coluna)
-    text = text.replace("ILINE", " ").replace("XLINE", " ").replace(":", " ")
     lines = [ln.replace(",", " ") for ln in text.splitlines() if ln.strip()]
     if not lines[0].split()[0].lstrip("-").replace(".", "", 1).isdigit():
         lines = lines[1:]  # cabecalho
     data = np.loadtxt(io.StringIO("\n".join(lines)), ndmin=2)
-    il, xl, y, x, z = data[:, [0, 1, 2, 3, -1]].T  # Z = ultima coluna (atributo)
-    if not x.any() and not y.any():  # sem coordenadas (X=Y=0): usa XL/IL como X/Y
-        x, y = xl, il
+    il, xl, y, x, z = data[:, :5].T
     ok = np.isfinite(x) & np.isfinite(y) & np.isfinite(z)
     return il[ok], xl[ok], y[ok], x[ok], z[ok]
 
